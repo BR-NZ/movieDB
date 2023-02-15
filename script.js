@@ -24,6 +24,7 @@
 'use strict';
 
 let numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?');
+let addOn = true;
 
 const personalMovieDB = {
     count: numberOfFilms,
@@ -33,7 +34,15 @@ const personalMovieDB = {
     privat: false
 };
 
-let movie = prompt('Один из просмотренных последних фильмов?');
-let score = +prompt('На сколько оцените его?');
+while(addOn) {
+    let movie = prompt('Один из просмотренных последних фильмов?');
+    let score = +prompt('На сколько оцените его?');
+    if(!movie && !score && movie.length > 50) continue;
+    personalMovieDB.movies[movie] = score;
+    addOn = confirm('Продолжить ввод?');
+}
 
-personalMovieDB.movies[movie] = score;
+if(personalMovieDB.count < 10) alert('Просмотренно довольно мало фильмов');
+else if(personalMovieDB.count >= 10 && personalMovieDB.count < 30) alert('Вы классический зритель');
+else if(personalMovieDB.count >= 30) alert('Вы киноман');
+else alert('Произошла ошибка');
