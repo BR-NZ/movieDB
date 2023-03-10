@@ -21,6 +21,34 @@ const movieDB = {
         "Ла-ла лэнд",
         "Одержимость",
         "Скотт Пилигрим против..."
-    ]
+    ],
+    editElementText: function(selector, text) {
+        const element = document.querySelector(selector);
+        element.textContent = text;
+    },
+    changeElementBackground: function(selector, backgroundUrl) {
+        const element = document.querySelector(selector);
+        element.style.backgroundImage = `url(${backgroundUrl})`;
+    },
+    removeAdv: function() {
+        const advBlock = document.querySelector('.promo__adv')
+        advBlock.remove();
+    },
+    listElements: function(arr) {
+        const parent = document.querySelector('.promo__interactive-list');
+        parent.innerHTML = '';
+
+        arr.sort().forEach((element, i) => {
+            const item = document.createElement('li');
+            item.classList.add('promo__interactive-item');
+            item.innerHTML = '<div class="delete"></div>';
+            item.textContent = `${i + 1}. ${element}`;
+            parent.appendChild(item);
+        });
+    }
 };
 
+movieDB.removeAdv();
+movieDB.editElementText('.promo__genre', 'драма');
+movieDB.changeElementBackground('.promo__bg', '/img/bg.jpg');
+movieDB.listElements(movieDB.movies);
